@@ -2,6 +2,7 @@ version: "3"
 x-common: &common
   networks:
     - signoz-net
+    - dokploy-network
   restart: unless-stopped
   logging:
     options:
@@ -164,6 +165,8 @@ services:
     depends_on:
       signoz:
         condition: service_healthy
+    networks:
+      - dokploy-network
   schema-migrator-sync:
     !!merge <<: *common
     image: signoz/signoz-schema-migrator:${OTELCOL_TAG:-v0.129.7}
@@ -188,6 +191,8 @@ services:
 networks:
   signoz-net:
     name: signoz-net
+  dokploy-network:
+    external: true
 volumes:
   clickhouse:
     name: signoz-clickhouse
