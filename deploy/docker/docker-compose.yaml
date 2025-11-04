@@ -121,6 +121,7 @@ services:
     #   - "6060:6060"     # pprof port
     volumes:
       - ../../../files/prometheus.yml:/root/config/prometheus.yml
+      - /var/run/docker.sock:/var/run/docker.sock:ro
       - ../common/dashboards:/root/config/dashboards
       - sqlite:/var/lib/signoz/
     environment:
